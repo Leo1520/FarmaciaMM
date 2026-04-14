@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Farmacia Amor y Salud</title>
+
+<style>
+body {
+    margin: 0;
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* SVG */
+svg {
+    width: 250px;
+}
+
+/* ANIMACIÓN */
+path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: dibujar 4s ease forwards;
+}
+
+/* Keyframes */
+@keyframes dibujar {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <path d="
+    M 80,50
+    C 80,15 30,15 15,50
+    C 0,90 40,145 100,185
+    C 160,145 200,90 185,50
+    C 170,15 112,15 112,55
+    L 112,88
+    L 136,88
+    L 136,112
+    L 112,112
+    L 112,136
+    L 88,136
+    L 88,112
+    L 64,112
+    L 64,88
+    L 88,88
+    L 88,65" 
+    fill="none" 
+    stroke="#8db684" 
+    stroke-width="12" 
+    stroke-linecap="round" 
+    stroke-linejoin="round" />
+</svg>
+
+</body>
+</html>
