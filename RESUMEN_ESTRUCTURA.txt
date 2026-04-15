@@ -1,0 +1,440 @@
+═══════════════════════════════════════════════════════════════════════════════
+                    RESTRUCTURA MVC - FARMACIA MM
+                           RESUMEN EJECUTIVO
+═══════════════════════════════════════════════════════════════════════════════
+
+PROYECTO: Farmacia MM - Sistema de Gestión de Medicamentos
+PATRÓN: Modelo-Vista-Controlador (MVC)
+TECNOLOGÍA: HTML5, CSS3, JavaScript Vanilla, localStorage
+FECHA: Abril 2026
+
+═══════════════════════════════════════════════════════════════════════════════
+1. ESTRUCTURA ANTES vs DESPUÉS
+═══════════════════════════════════════════════════════════════════════════════
+
+ANTES (Sin estructura clara):
+├── index.html
+├── cargaProceso.html
+├── listaMed.html
+├── registroMed.html
+├── registroUser.html
+├── login/
+│   ├── index.html
+│   ├── script.js
+│   └── style.css
+└── img/
+
+PROBLEMAS:
+❌ Código desorganizado
+❌ HTML, CSS y JS mezclados
+❌ Difícil de mantener
+❌ No reutilizable
+❌ Lógica duplicada
+
+
+DESPUÉS (Estructura MVC):
+├── index.html (punto de entrada)
+├── src/
+│   ├── models/ (Datos)
+│   │   ├── User.js
+│   │   └── Medicamento.js
+│   ├── controllers/ (Lógica de negocio)
+│   │   ├── AuthController.js
+│   │   └── MedicamentoController.js
+│   ├── views/ (Presentación)
+│   │   ├── login.html
+│   │   ├── registro.html
+│   │   ├── dashboard.html
+│   │   ├── medicamentos.html
+│   │   └── registroMedicamento.html
+│   └── utils/ (Utilidades)
+│       ├── localStorage.js
+│       └── validaciones.js
+└── public/
+    ├── css/ (Estilos)
+    │   └── *.css (6 archivos)
+    └── js/ (Scripts de vista)
+        └── *.js (5 archivos)
+
+BENEFICIOS:
+✅ Código bien organizado
+✅ Responsabilidades claras
+✅ Fácil de mantener
+✅ Reutilizable
+✅ Escalable
+✅ Profesional
+
+═══════════════════════════════════════════════════════════════════════════════
+2. COMPONENTES CREADOS
+═══════════════════════════════════════════════════════════════════════════════
+
+📦 MODELOS (src/models/)
+─────────────────────────────────────────────────────────────────────────────
+
+User.js
+  Propiedades:
+    • id: identificador único
+    • nombre: nombre del usuario
+    • email: correo electrónico
+    • contraseña: contraseña encriptada
+    • rol: 'admin' o 'usuario'
+    
+  Métodos:
+    • validar(): valida integridad de datos
+    • toJSON(): convierte a JSON
+
+Medicamento.js
+  Propiedades:
+    • id: identificador único
+    • nombre: nombre del medicamento
+    • descripcion: descripción
+    • precio: precio en USD
+    • stock: cantidad disponible
+    • categoria: categoría del medicamento
+    
+  Métodos:
+    • validar(): valida datos
+    • hayStock(cantidad): verifica disponibilidad
+    • reducirStock(cantidad): reduce el stock
+    • aumentarStock(cantidad): aumenta el stock
+    • toJSON(): convierte a JSON
+
+
+🎮 CONTROLADORES (src/controllers/)
+─────────────────────────────────────────────────────────────────────────────
+
+AuthController.js
+  Métodos:
+    • login(email, contraseña): autentica usuario
+    • registro(nombre, email, contraseña): registra nuevo usuario
+    • logout(): cierra sesión
+    • obtenerUsuarioActual(): obtiene usuario autenticado
+    • estaAutenticado(): verifica sesión activa
+    • obtenerUsuarios(): obtiene lista de usuarios
+
+MedicamentoController.js
+  Métodos:
+    • obtenerTodos(): obtiene todos los medicamentos
+    • obtenerPorId(id): obtiene medicamento específico
+    • buscar(termino): busca por nombre o categoría
+    • crear(nombre, descripción, precio, stock, categoria): crea nuevo
+    • actualizar(id, datos): actualiza medicamento existente
+    • eliminar(id): elimina medicamento
+    • obtenerPorCategoria(categoria): filtra por categoría
+    • obtenerStockBajo(limite): medicamentos con stock crítico
+
+
+🎨 VISTAS (src/views/)
+─────────────────────────────────────────────────────────────────────────────
+
+login.html
+  • Formulario de autenticación
+  • Validación de email y contraseña
+  • Enlaces a registro
+
+registro.html
+  • Formulario de registro de usuario
+  • Validaciones de contraseña
+  • Confirmación de contraseña
+
+dashboard.html
+  • Panel principal
+  • Estadísticas generales
+  • Medicamentos con stock bajo
+  • Links de navegación
+
+medicamentos.html
+  • Lista de medicamentos
+  • Búsqueda en tiempo real
+  • Filtrado por categoría
+  • Modal de detalles
+  • Opciones de edición/eliminación
+
+registroMedicamento.html
+  • Formulario para agregar medicamento
+  • Validación de campos
+  • Guardado automático
+
+
+🔧 UTILIDADES (src/utils/)
+─────────────────────────────────────────────────────────────────────────────
+
+localStorage.js
+  • StorageUtil.set(clave, valor)
+  • StorageUtil.get(clave, esJSON)
+  • StorageUtil.remove(clave)
+  • StorageUtil.clear()
+  • StorageUtil.exists(clave)
+
+validaciones.js
+  • Validaciones.esEmailValido(email)
+  • Validaciones.noEstaVacio(texto)
+  • Validaciones.esPositivo(numero)
+  • Validaciones.validarLongitud(texto, min, max)
+  • Validaciones.esContraseñaFuerte(contraseña)
+  • Validaciones.esTelefonoValido(telefono)
+
+
+🎯 SCRIPTS DE VISTA (public/js/)
+─────────────────────────────────────────────────────────────────────────────
+
+login.js
+  • Manejo de eventos de formulario
+  • Validación de entrada
+  • Redirección post-login
+
+registro.js
+  • Registro de nuevos usuarios
+  • Validación de datos
+  • Mensajes de confirmación
+
+dashboard.js
+  • Carga de estadísticas
+  • Medicamentos con stock bajo
+  • Cierre de sesión
+
+medicamentos.js
+  • Listado de medicamentos
+  • Búsqueda y filtrado
+  • Modal de detalles
+  • Edición y eliminación
+
+registroMedicamento.js
+  • Validación de formulario
+  • Creación de medicamentos
+  • Mensaje de confirmación
+
+
+🎨 ESTILOS (public/css/)
+─────────────────────────────────────────────────────────────────────────────
+
+styles.css (Global)
+  • Variables CSS
+  • Estilos base
+  • Componentes comunes (botones, formularios)
+  • Modales
+  • Responsive design
+
+login.css
+  • Gradiente de fondo
+  • Tarjeta de login
+  • Animaciones
+
+registro.css
+  • Estilos del formulario
+  • Campos de entrada
+  • Validaciones visuales
+
+dashboard.css
+  • Tarjetas de estadísticas
+  • Grid responsive
+  • Alertas visuales
+
+medicamentos.css
+  • Grid de medicamentos
+  • Búsqueda y filtros
+  • Cards interactivos
+
+registroMedicamento.css
+  • Formulario centrado
+  • Campos dobles
+  • Acciones
+
+═══════════════════════════════════════════════════════════════════════════════
+3. FLUJO DE DATOS
+═══════════════════════════════════════════════════════════════════════════════
+
+[USUARIO INTERACTÚA]
+         ↓
+    [VISTA HTML]
+         ↓
+ [EVENTO (click, submit)]
+         ↓
+[SCRIPT DE VISTA (public/js/)]
+    Valida entrada
+    Llama controlador
+         ↓
+[CONTROLADOR (src/controllers/)]
+    Lógica de negocio
+    Usa modelos
+         ↓
+[MODELO (src/models/)]
+    Validación
+    Transformación
+         ↓
+[ALMACENAMIENTO]
+    localStorage
+         ↓
+[RESPUESTA]
+    Script actualiza Vista
+         ↓
+    [USUARIO VE RESULTADO]
+
+
+═══════════════════════════════════════════════════════════════════════════════
+4. CARACTERÍSTICAS IMPLEMENTADAS
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ AUTENTICACIÓN
+  • Login de usuarios
+  • Registro de nuevos usuarios
+  • Gestión de sesiones (token + usuario)
+  • Logout
+  • Protección de rutas
+
+✅ GESTIÓN DE MEDICAMENTOS
+  • Listar todos los medicamentos
+  • Crear medicamentos
+  • Editar medicamentos (estructura lista)
+  • Eliminar medicamentos
+  • Buscar por nombre
+  • Filtrar por categoría
+  • Ver detalles en modal
+  • Control de stock
+
+✅ DASHBOARD
+  • Estadísticas de medicamentos
+  • Total de usuarios
+  • Total de categorías
+  • Alertas de stock bajo
+  • Medicamentos críticos resaltados
+
+✅ VALIDACIONES
+  • Email válido
+  • Contraseña segura
+  • Campos no vacíos
+  • Números positivos
+  • Longitud de texto
+
+✅ DISEÑO RESPONSIVO
+  • Adaptable a mobile
+  • Grid flexible
+  • Formularios accesibles
+  • Navegación clara
+
+═══════════════════════════════════════════════════════════════════════════════
+5. SEGURIDAD
+═══════════════════════════════════════════════════════════════════════════════
+
+IMPLEMENTACIÓN ACTUAL:
+• localStorage para sesiones (token + usuario)
+• Validación en cliente
+• Protección de rutas (redirige si no autenticado)
+
+RECOMENDACIONES PARA PRODUCCIÓN:
+⚠️ Implementar backend con autenticación JWT
+⚠️ Validar en servidor también
+⚠️ Usar HTTPS
+⚠️ Hashear contraseñas (bcrypt/Argon2)
+⚠️ CORS configurado
+⚠️ Rate limiting
+⚠️ Sanitización de entrada
+
+═══════════════════════════════════════════════════════════════════════════════
+6. CÓMO USAR LA APLICACIÓN
+═══════════════════════════════════════════════════════════════════════════════
+
+INICIO:
+1. Abre index.html en el navegador
+2. Si no hay sesión activa → va a login.html
+3. Si hay sesión activa → va a dashboard.html
+
+CREDENCIALES DE PRUEBA:
+• Email: admin@farmacia.com
+• Contraseña: admin123
+
+O crea una nueva cuenta:
+1. Haz clic en "Regístrate aquí"
+2. Completa el formulario
+3. Confirma la contraseña
+4. ¡Listo!
+
+DATOS DE EJEMPLO:
+Se incluyen 5 medicamentos:
+• Paracetamol 500mg - $5.99
+• Ibuprofeno 400mg - $7.99
+• Amoxicilina 500mg - $12.99
+• Vitamina C 1000mg - $8.99
+• Cough Sirup - $6.99
+
+═══════════════════════════════════════════════════════════════════════════════
+7. ARCHIVOS DE DOCUMENTACIÓN
+═══════════════════════════════════════════════════════════════════════════════
+
+📄 ESTRUCTURA_MVC.md
+  Guía completa y detallada de la arquitectura
+
+📄 GUIA_RAPIDA.md
+  Referencia rápida y ejemplos de uso
+
+📄 CONFIG_EJEMPLO.js
+  Ejemplos de código para inicialización
+
+📄 RESUMEN_ESTRUCTURA.txt (este archivo)
+  Visión general del proyecto
+
+═══════════════════════════════════════════════════════════════════════════════
+8. PRÓXIMOS PASOS
+═══════════════════════════════════════════════════════════════════════════════
+
+✓ CORTO PLAZO:
+  - Implementar backend con Node.js/Express
+  - Base de datos real (MongoDB/MySQL)
+  - Autenticación con JWT
+  - API RESTful
+
+✓ MEDIANO PLAZO:
+  - Reportes y gráficos
+  - Sistema de inventario avanzado
+  - Promociones y descuentos
+  - Control de lotes
+
+✓ LARGO PLAZO:
+  - Carrito de compra
+  - Sistema de pagos
+  - App mobile
+  - Analytics y BI
+
+═══════════════════════════════════════════════════════════════════════════════
+9. TECNOLOGÍAS UTILIZADAS
+═══════════════════════════════════════════════════════════════════════════════
+
+FRONTEND:
+✓ HTML5
+✓ CSS3 (Flexbox, Grid, Animaciones)
+✓ JavaScript ES6+ (Clases, Arrow Functions)
+✓ localStorage API
+
+ARQUITECTURA:
+✓ Modelo-Vista-Controlador (MVC)
+✓ Separación de responsabilidades
+✓ SOLID Principles
+
+═══════════════════════════════════════════════════════════════════════════════
+10. ESTADÍSTICAS DEL PROYECTO
+═══════════════════════════════════════════════════════════════════════════════
+
+ARCHIVOS CREADOS: 21
+├── Models: 2
+├── Controllers: 2
+├── Views: 5
+├── Utils: 2
+├── CSS: 6
+├── JS: 5
+└── Config/Docs: 4
+
+LÍNEAS DE CÓDIGO: ~2000+
+FUNCIONES: 50+
+CLASES: 4
+
+═══════════════════════════════════════════════════════════════════════════════
+
+✨ ¡Tu proyecto está listo para usar! ✨
+
+Para empezar:
+1. Abre c:\laragon\www\FarmaciaMM\index.html
+2. Lee ESTRUCTURA_MVC.md para entender la arquitectura
+3. Consulta GUIA_RAPIDA.md para desarrollo rápido
+4. Revisa CONFIG_EJEMPLO.js para ejemplos de uso
+
+═══════════════════════════════════════════════════════════════════════════════

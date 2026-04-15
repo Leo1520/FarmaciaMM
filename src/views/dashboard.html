@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Farmacia MM</title>
+    <link rel="stylesheet" href="../public/css/styles.css">
+    <link rel="stylesheet" href="../public/css/dashboard.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">Farmacia MM</h1>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="medicamentos.html">Medicamentos</a></li>
+                <li><a href="registroMedicamento.html">Agregar Medicamento</a></li>
+                <li><a href="#" id="logoutBtn">Cerrar Sesión</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section class="dashboard-section">
+            <h2>Bienvenido, <span id="userName"></span></h2>
+
+            <div class="stats-container">
+                <div class="stat-card">
+                    <h3>Total de Medicamentos</h3>
+                    <p class="stat-number" id="totalMedicamentos">0</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Medicamentos con Stock Bajo</h3>
+                    <p class="stat-number alert" id="stockBajo">0</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Total de Usuarios</h3>
+                    <p class="stat-number" id="totalUsuarios">0</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Categorías</h3>
+                    <p class="stat-number" id="totalCategorias">0</p>
+                </div>
+            </div>
+
+            <div class="quick-actions">
+                <a href="medicamentos.html" class="btn btn-primary">Ver Medicamentos</a>
+                <a href="registroMedicamento.html" class="btn btn-primary">Agregar Medicamento</a>
+            </div>
+
+            <section class="recent-section">
+                <h3>Medicamentos con Stock Bajo</h3>
+                <div id="stockBajoContainer" class="medicamentos-list">
+                    <!-- Se cargarán dinámicamente -->
+                </div>
+            </section>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../src/models/Medicamento.js"></script>
+    <script src="../src/controllers/AuthController.js"></script>
+    <script src="../src/controllers/MedicamentoController.js"></script>
+    <script src="../src/utils/localStorage.js"></script>
+    <script src="../src/utils/validaciones.js"></script>
+    <script src="../public/js/dashboard.js"></script>
+</body>
+</html>

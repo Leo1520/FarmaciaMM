@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Medicamento - Farmacia MM</title>
+    <link rel="stylesheet" href="../public/css/styles.css">
+    <link rel="stylesheet" href="../public/css/registroMedicamento.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">Farmacia MM</h1>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="medicamentos.html">Medicamentos</a></li>
+                <li><a href="registroMedicamento.html" class="active">Agregar Medicamento</a></li>
+                <li><a href="#" id="logoutBtn">Cerrar Sesión</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section class="registro-medicamento-section">
+            <h2>Registrar Nuevo Medicamento</h2>
+
+            <form id="formMedicamento" class="form-medicamento">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nombre">Nombre del Medicamento *</label>
+                        <input 
+                            type="text" 
+                            id="nombre" 
+                            name="nombre" 
+                            placeholder="Ej: Paracetamol"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categoria">Categoría *</label>
+                        <select id="categoria" name="categoria" required>
+                            <option value="">- Seleccionar categoría -</option>
+                            <option value="Analgésicos">Analgésicos</option>
+                            <option value="Antiinflamatorios">Antiinflamatorios</option>
+                            <option value="Antibióticos">Antibióticos</option>
+                            <option value="Vitaminas">Vitaminas</option>
+                            <option value="Otros">Otros</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="descripcion">Descripción *</label>
+                    <textarea 
+                        id="descripcion" 
+                        name="descripcion" 
+                        placeholder="Describe el medicamento..."
+                        rows="5"
+                        required
+                    ></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="precio">Precio (USD) *</label>
+                        <input 
+                            type="number" 
+                            id="precio" 
+                            name="precio" 
+                            step="0.01"
+                            min="0"
+                            placeholder="0.00"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="stock">Cantidad en Stock *</label>
+                        <input 
+                            type="number" 
+                            id="stock" 
+                            name="stock" 
+                            min="0"
+                            placeholder="0"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Guardar Medicamento</button>
+                    <a href="medicamentos.html" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+
+            <div id="messageContainer" class="message-container"></div>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../src/models/Medicamento.js"></script>
+    <script src="../src/controllers/AuthController.js"></script>
+    <script src="../src/controllers/MedicamentoController.js"></script>
+    <script src="../src/utils/localStorage.js"></script>
+    <script src="../src/utils/validaciones.js"></script>
+    <script src="../public/js/registroMedicamento.js"></script>
+</body>
+</html>

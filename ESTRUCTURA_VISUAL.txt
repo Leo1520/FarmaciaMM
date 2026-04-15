@@ -1,0 +1,295 @@
+🏥 FARMACIA MM - ESTRUCTURA MVC COMPLETA
+═════════════════════════════════════════════════════════════════
+
+📦 c:/laragon/www/FarmaciaMM/
+│
+├─ 📄 index.html ⭐
+│  └─ Punto de entrada - Redirige según autenticación
+│
+├─ 📂 src/ (CÓDIGO FUENTE)
+│  │
+│  ├─ 📂 models/ (CAPA DE DATOS)
+│  │  ├─ User.js
+│  │  │  └─ class User { id, nombre, email, contraseña, rol }
+│  │  │     • constructor()
+│  │  │     • validar()
+│  │  │     • toJSON()
+│  │  │
+│  │  └─ Medicamento.js
+│  │     └─ class Medicamento { id, nombre, descripción, precio, stock, categoria }
+│  │        • constructor()
+│  │        • validar()
+│  │        • hayStock()
+│  │        • reducirStock()
+│  │        • aumentarStock()
+│  │        • toJSON()
+│  │
+│  ├─ 📂 controllers/ (CAPA DE LÓGICA)
+│  │  ├─ AuthController.js
+│  │  │  └─ class AuthController
+│  │  │     • login(email, contraseña)
+│  │  │     • registro(nombre, email, contraseña)
+│  │  │     • logout()
+│  │  │     • obtenerUsuarioActual()
+│  │  │     • estaAutenticado()
+│  │  │     • obtenerUsuarios()
+│  │  │
+│  │  └─ MedicamentoController.js
+│  │     └─ class MedicamentoController
+│  │        • obtenerTodos()
+│  │        • obtenerPorId(id)
+│  │        • buscar(termino, campo)
+│  │        • crear(nombre, descripción, precio, stock, categoria)
+│  │        • actualizar(id, datos)
+│  │        • eliminar(id)
+│  │        • obtenerPorCategoria(categoria)
+│  │        • obtenerStockBajo(limite)
+│  │        • guardarMedicamentos()
+│  │        • obtenerMedicamentos()
+│  │
+│  ├─ 📂 views/ (CAPA DE PRESENTACIÓN - HTML)
+│  │  ├─ login.html
+│  │  │  └─ Formulario de autenticación
+│  │  │     └─ <input email, password> + <button submit>
+│  │  │
+│  │  ├─ registro.html
+│  │  │  └─ Formulario de registro
+│  │  │     └─ <input nombre, email, password, confirmPassword> + <button submit>
+│  │  │
+│  │  ├─ dashboard.html ⭐ PÁGINA PRINCIPAL
+│  │  │  └─ Panel de control
+│  │  │     ├─ Estadísticas (total medicamentos, usuarios, categorías)
+│  │  │     ├─ Medicamentos con stock bajo
+│  │  │     └─ Enlaces rápidos
+│  │  │
+│  │  ├─ medicamentos.html
+│  │  │  └─ Listado de medicamentos
+│  │  │     ├─ Búsqueda + <input> + <button>
+│  │  │     ├─ Filtro por categoría + <select>
+│  │  │     ├─ Grid de medicamentos
+│  │  │     └─ Modal con detalles
+│  │  │
+│  │  └─ registroMedicamento.html
+│  │     └─ Formulario de medicamento
+│  │        └─ <input nombre, descripción, categoria, precio, stock> + <button>
+│  │
+│  └─ 📂 utils/ (UTILIDADES COMPARTIDAS)
+│     ├─ localStorage.js
+│     │  └─ const StorageUtil = {
+│     │     • set(clave, valor)
+│     │     • get(clave, esJSON)
+│     │     • remove(clave)
+│     │     • clear()
+│     │     • exists(clave)
+│     │  }
+│     │
+│     └─ validaciones.js
+│        └─ const Validaciones = {
+│           • esEmailValido(email)
+│           • noEstaVacio(texto)
+│           • esPositivo(numero)
+│           • validarLongitud(texto, minimo, maximo)
+│           • esContraseñaFuerte(contraseña)
+│           • esTelefonoValido(telefono)
+│        }
+│
+├─ 📂 public/ (ARCHIVOS ESTÁTICOS)
+│  │
+│  ├─ 📂 css/ (ESTILOS)
+│  │  ├─ styles.css
+│  │  │  ├─ :root { --primary-color, --secondary-color, ... }
+│  │  │  ├─ * { margin, padding, box-sizing }
+│  │  │  ├─ body { font-family, line-height }
+│  │  │  ├─ Container, Navbar, Botones
+│  │  │  ├─ Formularios, Alertas, Tarjetas
+│  │  │  ├─ Modal, Grid, Responsive
+│  │  │  └─ @media (max-width: 768px)
+│  │  │
+│  │  ├─ login.css
+│  │  │  └─ .login-container { gradiente }
+│  │  │     .login-card { blanca, sombreada }
+│  │  │
+│  │  ├─ registro.css
+│  │  │  └─ Similar a login.css
+│  │  │
+│  │  ├─ dashboard.css
+│  │  │  ├─ .stats-container { grid }
+│  │  │  ├─ .stat-card { blanca, borde }
+│  │  │  ├─ .quick-actions { flex }
+│  │  │  └─ .medicamento-item { fila }
+│  │  │
+│  │  ├─ medicamentos.css
+│  │  │  ├─ .search-bar { flex }
+│  │  │  ├─ .filter-container { flex }
+│  │  │  ├─ .medicamentos-grid { grid }
+│  │  │  └─ .medicamento-card { hover, animación }
+│  │  │
+│  │  └─ registroMedicamento.css
+│  │     └─ .form-row { grid 2 columnas }
+│  │
+│  └─ 📂 js/ (SCRIPTS DE VISTA - CONECTA CON CONTROLADORES)
+│     ├─ login.js
+│     │  ├─ const authController = new AuthController()
+│     │  ├─ Evento: form.submit
+│     │  ├─ Valida email + contraseña
+│     │  ├─ authController.login(email, password)
+│     │  └─ Redirecciona a dashboard.html
+│     │
+│     ├─ registro.js
+│     │  ├─ const authController = new AuthController()
+│     │  ├─ Evento: form.submit
+│     │  ├─ Valida nombre, email, password
+│     │  ├─ authController.registro(nombre, email, password)
+│     │  └─ Redirecciona a login.html
+│     │
+│     ├─ dashboard.js
+│     │  ├─ Verifica autenticación
+│     │  ├─ Carga estadísticas
+│     │  ├─ Muestra medicamentos con stock bajo
+│     │  └─ Evento: logoutBtn.click
+│     │
+│     ├─ medicamentos.js
+│     │  ├─ const medicamentoController = new MedicamentoController()
+│     │  ├─ Cargar medicamentos: obtenerTodos()
+│     │  ├─ Búsqueda: buscadora.search()
+│     │  ├─ Filtro: filtro.change()
+│     │  ├─ Modal: verDetalle(id)
+│     │  └─ Acciones: editar(id), eliminar(id)
+│     │
+│     └─ registroMedicamento.js
+│        ├─ const medicamentoController = new MedicamentoController()
+│        ├─ Evento: form.submit
+│        ├─ Valida todos los campos
+│        ├─ medicamentoController.crear(...)
+│        └─ Redirecciona a medicamentos.html
+│
+├─ 📂 img/
+│  └─ (Imágenes de la aplicación)
+│
+├─ 📂 login/ (DEPRECADO)
+│  └─ (Archivos del sistema anterior)
+│
+├─ 📄 ESTRUCTURA_MVC.md 📖
+│  └─ Guía completa y detallada
+│
+├─ 📄 GUIA_RAPIDA.md 🚀
+│  └─ Referencia rápida
+│
+├─ 📄 CONFIG_EJEMPLO.js 🔧
+│  └─ Ejemplos de uso
+│
+├─ 📄 RESUMEN_ESTRUCTURA.txt 📋
+│  └─ Este documento
+│
+└─ 📄 README.md
+   └─ Información del proyecto
+
+═════════════════════════════════════════════════════════════════
+
+✨ FLUJO COMPLETO USUARIO ✨
+
+1. Usuario abre index.html
+          ↓
+2. Script verifica sesión
+   ├─ Si no hay sesión → login.html
+   └─ Si hay sesión → dashboard.html
+          ↓
+3. (Si es nuevo) Registra → registro.html → crea User → login.html
+          ↓
+4. Login → AuthController.login() → guarda token → dashboard.html
+          ↓
+5. Dashboard → muestra estadísticas
+   ├─ MedicamentoController.obtenerTodos()
+   ├─ MedicamentoController.obtenerStockBajo()
+   └─ AuthController.obtenerUsuarioActual()
+          ↓
+6. Navegación:
+   ├─ medicamentos.html → lista, busca, filtra
+   └─ registroMedicamento.html → crea medicamento
+          ↓
+7. Cada acción:
+   ├─ Vista (HTML) → evento
+   ├─ Script (JS) → valida + llama controlador
+   ├─ Controlador → procesa lógica
+   ├─ Modelo → valida datos
+   ├─ localStorage → guarda
+   └─ Script → actualiza Vista
+
+═════════════════════════════════════════════════════════════════
+
+📊 ESTADÍSTICAS
+
+Archivos creados:        21
+├─ Modelos:              2
+├─ Controladores:        2
+├─ Vistas:               5
+├─ Utilidades:           2
+├─ Estilos CSS:          6
+├─ Scripts JS:           5
+├─ Documentación:        4
+└─ Configuración:        1
+
+Líneas de código:        ~2000+
+Funciones:               50+
+Clases:                  4
+Variables CSS:           12
+
+═════════════════════════════════════════════════════════════════
+
+✅ CHECKLIST DE FUNCIONALIDADES
+
+AUTENTICACIÓN:
+✓ Login
+✓ Registro
+✓ Logout
+✓ Protección de rutas
+✓ Gestión de sesiones
+
+MEDICAMENTOS:
+✓ Listar
+✓ Crear
+✓ (Editar - estructura lista)
+✓ Eliminar
+✓ Buscar
+✓ Filtrar por categoría
+✓ Ver detalles
+✓ Control de stock
+
+INTERFAZ:
+✓ Responsive design
+✓ Formularios validados
+✓ Modales
+✓ Alertas/Mensajes
+✓ Navegación clara
+
+═════════════════════════════════════════════════════════════════
+
+🎯 PRÓXIMOS PASOS
+
+1. Prueba la aplicación
+   → index.html → login.html
+   
+2. Lee la documentación
+   → ESTRUCTURA_MVC.md
+   
+3. Personaliza según necesidades
+   → Agrega más modelos/controladores
+   
+4. Implementa backend
+   → Node.js + Express + MongoDB
+   
+5. Deploy
+   → Vercel, Heroku, etc.
+
+═════════════════════════════════════════════════════════════════
+
+💡 TIPS
+
+• Mantén los modelos simples
+• La lógica compleja va en controladores
+• Reutiliza CSS con variables
+• Documenta siempre el código
+• Commit frecuente en git
+• Prueba en diferentes navegadores
+
+═════════════════════════════════════════════════════════════════
